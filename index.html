@@ -13,6 +13,29 @@ body {
   color: #fff;
 }
 
+/* HEADER */
+.topbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.9);
+  z-index: 10;
+}
+
+.topbar span {
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.cart-btn {
+  cursor: pointer;
+  color: #c9a24d;
+}
+
 /* HERO */
 .hero {
   height: 100vh;
@@ -41,14 +64,13 @@ body {
   border: none;
   padding: 16px 40px;
   border-radius: 30px;
-  font-size: 1em;
   cursor: pointer;
 }
 
 /* SECTION PRODUIT */
 .section {
   display: none;
-  padding: 80px 8%;
+  padding: 120px 8%;
 }
 
 .product {
@@ -64,103 +86,126 @@ body {
   box-shadow: 0 0 30px rgba(201,162,77,0.4);
 }
 
-.thumbs {
-  display: flex;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.thumbs img {
-  width: 80px;
-  border-radius: 10px;
-  cursor: pointer;
-  opacity: 0.6;
-}
-
-.thumbs img.active {
-  opacity: 1;
-  border: 2px solid #c9a24d;
-}
-
 .price {
   font-size: 2em;
   color: #c9a24d;
   margin: 20px 0;
 }
 
-.buy {
+.btn {
   background: #c9a24d;
   color: #000;
-  padding: 16px 40px;
+  padding: 14px 35px;
   border-radius: 30px;
-  text-decoration: none;
-  font-weight: bold;
-  display: inline-block;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
-@media (max-width: 768px) {
-  .product {
-    grid-template-columns: 1fr;
-  }
+/* PANIER */
+.cart {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100%;
+  background: #111;
+  padding: 30px;
+  z-index: 20;
+}
+
+.cart h2 {
+  color: #c9a24d;
+}
+
+.cart-item {
+  margin: 20px 0;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #777;
+}
+a { color:#c9a24d; text-decoration:none; }
+
+@media (max-width: 900px) {
+  .product { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero">
+<div class="topbar">
+  <span>AURELIUS</span>
+  <span class="cart-btn" onclick="toggleCart()">🛒 Panier</span>
+</div>
+
+<div class="hero" id="hero">
   <h1>AURELIUS</h1>
   <p>Le temps en majesté</p>
   <button onclick="openShop()">Découvrir la collection</button>
 </div>
 
-<!-- PRODUIT -->
 <div class="section" id="shop">
   <div class="product">
-
-    <div>
-      <img id="mainImage" src="IMG_0267.png" class="main-img">
-      <div class="thumbs">
-        <img src="IMG_0267.png" class="active" onclick="changeImage(this)">
-        <img src="IMG_0268.png" onclick="changeImage(this)">
-        <img src="IMG_0269.png" onclick="changeImage(this)">
-      </div>
-    </div>
+    <img src="IMG_0267.png" class="main-img">
 
     <div>
       <h2>Montre Luxe Quartz — Édition Cristal</h2>
-      <p>
-        Élégance, prestige et précision.  
-        Trois styles uniques pour sublimer chaque instant.
-      </p>
-
+      <p>Trois styles disponibles — Or, Argent, Bicolore</p>
       <div class="price">79,99 €</div>
 
-      <!-- PAYPAL -->
+      <button class="btn" onclick="addToCart()">Ajouter au panier</button>
+
       <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="business" value="dwaynekay07@gmail.com">
         <input type="hidden" name="item_name" value="Montre Aurelius - Édition Cristal">
         <input type="hidden" name="amount" value="79.99">
         <input type="hidden" name="currency_code" value="EUR">
-        <input type="submit" value="Acheter maintenant" class="buy">
+        <input type="submit" value="Acheter maintenant" class="btn">
       </form>
-
     </div>
   </div>
 </div>
 
+<div class="cart" id="cart">
+  <h2>Votre panier</h2>
+  <div class="cart-item">
+    Montre Aurelius — 79,99 €
+  </div>
+
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="dwaynekay07@gmail.com">
+    <input type="hidden" name="item_name" value="Montre Aurelius - Panier">
+    <input type="hidden" name="amount" value="79.99">
+    <input type="hidden" name="currency_code" value="EUR">
+    <input type="submit" value="Payer avec PayPal" class="btn">
+  </form>
+</div>
+
+<footer>
+  <a href="mentions-legales.html">Mentions légales</a><br>
+  © 2025 Aurelius
+</footer>
+
 <script>
 function openShop() {
-  document.querySelector('.hero').style.display = 'none';
+  document.getElementById('hero').style.display = 'none';
   document.getElementById('shop').style.display = 'block';
 }
 
-function changeImage(el) {
-  document.getElementById('mainImage').src = el.src;
-  document.querySelectorAll('.thumbs img').forEach(img => img.classList.remove('active'));
-  el.classList.add('active');
+function toggleCart() {
+  const cart = document.getElementById('cart');
+  cart.style.display = cart.style.display === 'block' ? 'none' : 'block';
+}
+
+function addToCart() {
+  alert("Produit ajouté au panier");
 }
 </script>
 
