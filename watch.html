@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>AURELIUS — Watches</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<header class="header small">
+  <h1>AURELIUS</h1>
+  <nav class="nav">
+    <a href="index.html">Accueil</a>
+  </nav>
+</header>
+
+<section class="product">
+
+  <div class="product-images">
+    <img id="mainWatch" src="images/watch-green.png" alt="Montre Aurelius">
+    
+    <div class="thumbnails">
+      <img src="images/watch-green.png" onclick="changeWatch('green')">
+      <img src="images/watch-silver.png" onclick="changeWatch('silver')">
+      <img src="images/watch-gold.png" onclick="changeWatch('gold')">
+    </div>
+  </div>
+
+  <div class="product-info">
+    <h2>Montre Aurelius — Édition Cristal</h2>
+    <p class="price">79,99 €</p>
+
+    <div class="styles">
+      <button onclick="changeWatch('green')">Vert Prestige</button>
+      <button onclick="changeWatch('silver')">Argent Classique</button>
+      <button onclick="changeWatch('gold')">Or Impérial</button>
+    </div>
+
+    <button class="btn-gold">Ajouter au panier</button>
+  </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
