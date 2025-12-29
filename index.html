@@ -5,62 +5,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aurelius — Le temps en majesté</title>
 
+<meta name="description" content="Montre de luxe Aurelius – Élégance, précision et style premium.">
+<meta name="keywords" content="montre luxe, montre homme, aurelius">
+
 <style>
 body {
   margin:0;
   font-family:Arial,sans-serif;
   background:#0b0b0b;
   color:#fff;
+  padding-top:80px;
+}
+
+/* HEADER */
+header {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  background:#000;
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  box-shadow:0 2px 10px rgba(0,0,0,0.6);
+}
+header h1 {
+  margin:0;
+  color:#c9a24d;
+  letter-spacing:4px;
+}
+#cartIcon {
+  cursor:pointer;
+  position:relative;
+}
+#cartCount {
+  position:absolute;
+  top:-8px; right:-10px;
+  background:#c9a24d;
+  color:#000;
+  border-radius:50%;
+  padding:2px 7px;
+  font-size:12px;
+}
+
+/* SEARCH */
+#searchInput {
+  width:100%;
+  max-width:400px;
+  padding:10px 15px;
+  border-radius:20px;
+  border:none;
+  outline:none;
 }
 
 /* HERO */
 .hero {
-  height:100vh;
-  background:radial-gradient(circle,#1a1a1a,#000);
+  height:90vh;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
 }
-.hero h1 { font-size:3.5em; letter-spacing:4px; }
-.hero p { color:#c9a24d; font-size:1.2em; margin-bottom:40px; }
+.hero h2 { font-size:3em; letter-spacing:4px; }
+.hero p { color:#c9a24d; }
 .hero button {
   background:#c9a24d;
   color:#000;
   border:none;
-  padding:16px 40px;
+  padding:15px 40px;
   border-radius:30px;
   cursor:pointer;
 }
 
 /* SHOP */
-.section { display:none; padding:100px 8%; }
+.section { display:none; padding:80px 8%; }
 .product { max-width:900px; margin:auto; }
-
 .main-img {
   width:100%;
   border-radius:16px;
   box-shadow:0 0 30px rgba(201,162,77,0.4);
 }
-
 .thumbs {
   display:flex;
   gap:12px;
   margin:15px 0;
 }
+.thumbs div {
+  text-align:center;
+}
 .thumbs img {
   width:70px;
   border-radius:10px;
-  opacity:.6;
   cursor:pointer;
+  opacity:.6;
 }
 .thumbs img.active {
   opacity:1;
   border:2px solid #c9a24d;
 }
 
-.price { font-size:2em; color:#c9a24d; margin:20px 0; }
+.price { font-size:2em; color:#c9a24d; }
 
 .btn {
   background:#c9a24d;
@@ -69,35 +115,36 @@ body {
   padding:14px 35px;
   border-radius:30px;
   cursor:pointer;
-  margin-top:10px;
 }
 
-.badges {
-  margin:15px 0;
-  color:#c9a24d;
-}
-
-/* PANIER */
+/* CART */
 #cartBox {
   position:fixed;
-  top:0;
-  right:0;
-  width:100%;
-  max-width:360px;
+  top:0; right:0;
+  width:360px;
   height:100%;
   background:#fff;
   color:#000;
-  padding:25px;
+  padding:20px;
   display:none;
-  z-index:999;
+  z-index:2000;
   box-shadow:-5px 0 30px rgba(0,0,0,0.4);
+  border-left:4px solid #c9a24d;
 }
-
-.review {
-  background:#111;
-  padding:15px;
-  border-radius:12px;
-  margin:10px 0;
+.cart-item {
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+.cart-item img {
+  width:70px;
+  border-radius:10px;
+}
+.cart-item button {
+  background:none;
+  border:none;
+  cursor:pointer;
+  color:red;
 }
 
 footer {
@@ -105,127 +152,70 @@ footer {
   padding:40px;
   color:#777;
 }
-footer a { color:#c9a24d; text-decoration:none; }
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero" id="hero">
+<header>
   <h1>AURELIUS</h1>
+  <input id="searchInput" placeholder="Rechercher (green, gold, silver)" onkeyup="searchProduct()">
+  <div id="cartIcon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+</header>
+
+<div class="hero" id="hero">
+  <h2>AURELIUS</h2>
   <p>Le temps en majesté</p>
-  <button onclick="openShop()">Découvrir la collection</button>
+  <button onclick="openShop()">Découvrir</button>
 </div>
 
-<!-- SHOP -->
 <div class="section" id="shop">
   <div class="product">
-
     <img id="mainImage" src="IMG_0267.png" class="main-img">
 
     <div class="thumbs">
-      <img src="IMG_0267.png" class="active" onclick="selectStyle(this,'Or')">
-      <img src="IMG_0268.png" onclick="selectStyle(this,'Argent')">
-      <img src="IMG_0269.png" onclick="selectStyle(this,'Bicolore')">
+      <div><img src="IMG_0267.png" class="active" onclick="selectStyle(this,'Green')"><br>Green</div>
+      <div><img src="IMG_0268.png" onclick="selectStyle(this,'Silver')"><br>Silver</div>
+      <div><img src="IMG_0269.png" onclick="selectStyle(this,'Gold')"><br>Gold</div>
     </div>
 
-    <h2>Montre Luxe Quartz — Édition Cristal</h2>
+    <h2>Montre Aurelius</h2>
+    <p>Montre élégante, quartz haute précision, style premium.</p>
 
-    <p>
-      Montre élégante conçue pour les amateurs de prestige.  
-      Mouvement quartz haute précision, boîtier acier, verre renforcé.  
-      Parfaite pour le quotidien comme pour les grandes occasions.
-    </p>
-
-    <p>✔ Étanche usage quotidien<br>
-       ✔ Bracelet confortable premium<br>
-       ✔ Cadeau idéal</p>
-
-    <p><strong>Style sélectionné :</strong> <span id="styleName">Or</span></p>
-
+    <p><strong>Style :</strong> <span id="styleName">Green</span></p>
     <div class="price">79,99 €</div>
 
-    <div class="badges">
-      🚚 Livraison 7–14 jours • 🔒 Paiement sécurisé • 🔁 Retour 14 jours
-    </div>
-
-    <p style="color:#ffb347;">⏰ Stock limité — offre en cours</p>
-
-    <p>
-      Quantité :
-      <button onclick="changeQty(-1)">−</button>
-      <span id="qty">1</span>
-      <button onclick="changeQty(1)">+</button>
-    </p>
-
     <button class="btn" onclick="addToCart()">🛒 Ajouter au panier</button>
-
-    <h3 style="margin-top:40px;">Avis clients ⭐⭐⭐⭐⭐</h3>
-    <div class="review">⭐️⭐️⭐️⭐️⭐️ “Magnifique montre, très classe.” — Lucas</div>
-    <div class="review">⭐️⭐️⭐️⭐️⭐️ “Livraison rapide, superbe qualité.” — Mehdi</div>
-    <div class="review">⭐️⭐️⭐️⭐️⭐️ “Parfait pour un cadeau.” — Sarah</div>
-
   </div>
 </div>
 
-<!-- PANIER -->
 <div id="cartBox">
-  <div style="display:flex;justify-content:space-between;">
-    <h2 style="color:#c9a24d;">Votre panier</h2>
-    <button onclick="closeCart()" style="border:none;background:none;font-size:22px;">✕</button>
-  </div>
-
-  <hr>
-
-  <div style="display:flex;gap:15px;">
-    <img id="cartImg" src="IMG_0267.png" style="width:90px;border-radius:12px;">
-    <div>
-      <strong>Montre Aurelius</strong><br>
-      Style : <span id="cartStyle"></span><br>
-      Quantité : <span id="cartQty"></span><br>
-      <strong style="color:#c9a24d;" id="cartTotal"></strong>
-    </div>
-  </div>
-
-  <p style="margin-top:15px;">🔒 Paiement sécurisé via PayPal</p>
+  <h2 style="color:#c9a24d;">Panier</h2>
+  <div id="cartItems"></div>
+  <h3>Total : <span id="cartTotal">0 €</span></h3>
 
   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="cmd" value="_cart">
+    <input type="hidden" name="upload" value="1">
     <input type="hidden" name="business" value="dwaynekay07@gmail.com">
-    <input type="hidden" name="item_name" value="Montre Aurelius">
-    <input type="hidden" name="amount" id="paypalAmount">
+    <div id="paypalItems"></div>
     <input type="hidden" name="currency_code" value="EUR">
-
-    <input type="submit" value="Payer avec PayPal" style="
-      width:100%;
-      background:#c9a24d;
-      color:#000;
-      border:none;
-      padding:15px;
-      border-radius:30px;
-      font-size:16px;
-      margin-top:20px;
-      cursor:pointer;
-    ">
+    <input type="submit" value="Payer avec PayPal" class="btn" style="width:100%;">
   </form>
+
+  <button onclick="toggleCart()" style="margin-top:10px;">Fermer</button>
 </div>
 
-<footer>
-  <a href="mentions-legales.html">Mentions légales</a> |
-  <a href="cgv.html">CGV</a><br><br>
-  © 2025 Aurelius
-</footer>
-
 <script>
-let style="Or";
-let qty=1;
-const price=79.99;
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let style = "Green";
+const price = 79.99;
 
 function openShop(){
   hero.style.display="none";
   shop.style.display="block";
 }
+
 function selectStyle(el,name){
   style=name;
   styleName.innerText=name;
@@ -233,22 +223,60 @@ function selectStyle(el,name){
   document.querySelectorAll(".thumbs img").forEach(i=>i.classList.remove("active"));
   el.classList.add("active");
 }
-function changeQty(n){
-  qty=Math.max(1,qty+n);
-  qtyEl=document.getElementById("qty").innerText=qty;
-}
+
 function addToCart(){
-  cartBox.style.display="block";
-  cartImg.src=mainImage.src;
-  cartStyle.innerText=style;
-  cartQty.innerText=qty;
-  let total=(price*qty).toFixed(2);
-  cartTotal.innerText=total+" €";
-  paypalAmount.value=total;
+  cart.push({style:style, img:mainImage.src, price:price});
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+  alert("✅ Ajouté au panier");
 }
-function closeCart(){
-  cartBox.style.display="none";
+
+function updateCart(){
+  let items = document.getElementById("cartItems");
+  let paypal = document.getElementById("paypalItems");
+  items.innerHTML = "";
+  paypal.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item,i)=>{
+    total += item.price;
+    items.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.img}">
+        <div>
+          Aurelius<br>${item.style}<br>${item.price} €
+          <button onclick="removeItem(${i})">❌</button>
+        </div>
+      </div>
+    `;
+    paypal.innerHTML += `
+      <input type="hidden" name="item_name_${i+1}" value="Aurelius ${item.style}">
+      <input type="hidden" name="amount_${i+1}" value="${item.price}">
+    `;
+  });
+
+  cartTotal.innerText = total.toFixed(2) + " €";
+  cartCount.innerText = cart.length;
 }
+
+function removeItem(i){
+  cart.splice(i,1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCart();
+}
+
+function toggleCart(){
+  cartBox.style.display = cartBox.style.display==="block" ? "none":"block";
+}
+
+function searchProduct(){
+  let v = searchInput.value.toLowerCase();
+  if(v.includes("green")) selectStyle(document.querySelectorAll(".thumbs img")[0],"Green");
+  if(v.includes("silver")||v.includes("argent")) selectStyle(document.querySelectorAll(".thumbs img")[1],"Silver");
+  if(v.includes("gold")||v.includes("or")) selectStyle(document.querySelectorAll(".thumbs img")[2],"Gold");
+}
+
+updateCart();
 </script>
 
 </body>
