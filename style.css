@@ -1,1 +1,90 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
+}
 
+.header {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.header.small {
+  padding: 20px;
+}
+
+.slogan {
+  color: #c9a24d;
+}
+
+.nav a {
+  color: #c9a24d;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.hero {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37, #b8962e);
+  color: black;
+  padding: 15px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px;
+  gap: 40px;
+}
+
+.product-images img {
+  width: 300px;
+  border-radius: 20px;
+}
+
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.thumbnails img {
+  width: 70px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #333;
+}
+
+.product-info {
+  max-width: 400px;
+}
+
+.price {
+  font-size: 28px;
+  color: #d4af37;
+}
+
+.styles button {
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #d4af37;
+  background: transparent;
+  color: #d4af37;
+  cursor: pointer;
+}
