@@ -7,124 +7,105 @@
 
 <style>
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b0b0b;
-  color: #fff;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0b0b0b;
+  color:#fff;
 }
 
 /* HERO */
 .hero {
-  height: 100vh;
-  background: radial-gradient(circle, #1a1a1a, #000);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  height:100vh;
+  background:radial-gradient(circle,#1a1a1a,#000);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
-
-.hero h1 {
-  font-size: 3.5em;
-  letter-spacing: 4px;
-}
-
-.hero p {
-  color: #c9a24d;
-  font-size: 1.2em;
-  margin-bottom: 40px;
-}
-
+.hero h1 { font-size:3.5em; letter-spacing:4px; }
+.hero p { color:#c9a24d; font-size:1.2em; margin-bottom:40px; }
 .hero button {
-  background: #c9a24d;
-  color: #000;
-  border: none;
-  padding: 16px 40px;
-  border-radius: 30px;
-  font-size: 1em;
-  cursor: pointer;
+  background:#c9a24d;
+  color:#000;
+  border:none;
+  padding:16px 40px;
+  border-radius:30px;
+  cursor:pointer;
 }
 
-/* SECTION PRODUIT */
-.section {
-  display: none;
-  padding: 100px 8%;
-}
-
-.product {
-  max-width: 900px;
-  margin: auto;
-}
+/* SHOP */
+.section { display:none; padding:100px 8%; }
+.product { max-width:900px; margin:auto; }
 
 .main-img {
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(201,162,77,0.4);
+  width:100%;
+  border-radius:16px;
+  box-shadow:0 0 30px rgba(201,162,77,0.4);
 }
 
 .thumbs {
-  display: flex;
-  gap: 12px;
-  margin: 15px 0;
+  display:flex;
+  gap:12px;
+  margin:15px 0;
 }
-
 .thumbs img {
-  width: 70px;
-  border-radius: 10px;
-  opacity: 0.6;
+  width:70px;
+  border-radius:10px;
+  opacity:.6;
+  cursor:pointer;
 }
-
 .thumbs img.active {
-  opacity: 1;
-  border: 2px solid #c9a24d;
+  opacity:1;
+  border:2px solid #c9a24d;
 }
 
-.price {
-  font-size: 2em;
-  color: #c9a24d;
-  margin: 20px 0;
-}
+.price { font-size:2em; color:#c9a24d; margin:20px 0; }
 
 .btn {
-  background: #c9a24d;
-  color: #000;
-  border: none;
-  padding: 14px 35px;
-  border-radius: 30px;
-  cursor: pointer;
-  font-size: 1em;
-  margin-top: 10px;
+  background:#c9a24d;
+  color:#000;
+  border:none;
+  padding:14px 35px;
+  border-radius:30px;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.badges {
+  margin:15px 0;
+  color:#c9a24d;
 }
 
 /* PANIER */
 #cartBox {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  max-width: 360px;
-  height: 100%;
-  background: #fff;
-  box-shadow: -5px 0 30px rgba(0,0,0,0.4);
-  padding: 25px;
-  display: none;
-  z-index: 999;
+  position:fixed;
+  top:0;
+  right:0;
+  width:100%;
+  max-width:360px;
+  height:100%;
+  background:#fff;
+  color:#000;
+  padding:25px;
+  display:none;
+  z-index:999;
+  box-shadow:-5px 0 30px rgba(0,0,0,0.4);
 }
 
-#cartBox h2 {
-  color: #c9a24d;
+.review {
+  background:#111;
+  padding:15px;
+  border-radius:12px;
+  margin:10px 0;
 }
 
 footer {
-  text-align: center;
-  padding: 40px;
-  color: #777;
+  text-align:center;
+  padding:40px;
+  color:#777;
 }
-
-footer a {
-  color: #c9a24d;
-  text-decoration: none;
-}
+footer a { color:#c9a24d; text-decoration:none; }
 </style>
 </head>
 
@@ -137,55 +118,83 @@ footer a {
   <button onclick="openShop()">Découvrir la collection</button>
 </div>
 
-<!-- PRODUIT -->
+<!-- SHOP -->
 <div class="section" id="shop">
   <div class="product">
 
     <img id="mainImage" src="IMG_0267.png" class="main-img">
 
     <div class="thumbs">
-      <img src="IMG_0267.png" class="active" onclick="changeImage(this)">
-      <img src="IMG_0268.png" onclick="changeImage(this)">
-      <img src="IMG_0269.png" onclick="changeImage(this)">
+      <img src="IMG_0267.png" class="active" onclick="selectStyle(this,'Or')">
+      <img src="IMG_0268.png" onclick="selectStyle(this,'Argent')">
+      <img src="IMG_0269.png" onclick="selectStyle(this,'Bicolore')">
     </div>
 
     <h2>Montre Luxe Quartz — Édition Cristal</h2>
-    <p>Élégance, prestige et précision. Trois styles uniques.</p>
+
+    <p>
+      Montre élégante conçue pour les amateurs de prestige.  
+      Mouvement quartz haute précision, boîtier acier, verre renforcé.  
+      Parfaite pour le quotidien comme pour les grandes occasions.
+    </p>
+
+    <p>✔ Étanche usage quotidien<br>
+       ✔ Bracelet confortable premium<br>
+       ✔ Cadeau idéal</p>
+
+    <p><strong>Style sélectionné :</strong> <span id="styleName">Or</span></p>
 
     <div class="price">79,99 €</div>
 
+    <div class="badges">
+      🚚 Livraison 7–14 jours • 🔒 Paiement sécurisé • 🔁 Retour 14 jours
+    </div>
+
+    <p style="color:#ffb347;">⏰ Stock limité — offre en cours</p>
+
+    <p>
+      Quantité :
+      <button onclick="changeQty(-1)">−</button>
+      <span id="qty">1</span>
+      <button onclick="changeQty(1)">+</button>
+    </p>
+
     <button class="btn" onclick="addToCart()">🛒 Ajouter au panier</button>
+
+    <h3 style="margin-top:40px;">Avis clients ⭐⭐⭐⭐⭐</h3>
+    <div class="review">⭐️⭐️⭐️⭐️⭐️ “Magnifique montre, très classe.” — Lucas</div>
+    <div class="review">⭐️⭐️⭐️⭐️⭐️ “Livraison rapide, superbe qualité.” — Mehdi</div>
+    <div class="review">⭐️⭐️⭐️⭐️⭐️ “Parfait pour un cadeau.” — Sarah</div>
 
   </div>
 </div>
 
 <!-- PANIER -->
 <div id="cartBox">
-  <div style="display:flex;justify-content:space-between;align-items:center;">
-    <h2>Votre panier</h2>
-    <button onclick="closeCart()" style="background:none;border:none;font-size:24px;">✕</button>
+  <div style="display:flex;justify-content:space-between;">
+    <h2 style="color:#c9a24d;">Votre panier</h2>
+    <button onclick="closeCart()" style="border:none;background:none;font-size:22px;">✕</button>
   </div>
 
   <hr>
 
   <div style="display:flex;gap:15px;">
-    <img src="IMG_0267.png" style="width:90px;border-radius:12px;">
+    <img id="cartImg" src="IMG_0267.png" style="width:90px;border-radius:12px;">
     <div>
       <strong>Montre Aurelius</strong><br>
-      <span style="color:#777;">Édition Cristal</span><br>
-      <span style="color:#c9a24d;font-size:18px;">79,99 €</span>
+      Style : <span id="cartStyle"></span><br>
+      Quantité : <span id="cartQty"></span><br>
+      <strong style="color:#c9a24d;" id="cartTotal"></strong>
     </div>
   </div>
 
-  <hr>
-
-  <p>Total : <strong style="color:#c9a24d;">79,99 €</strong></p>
+  <p style="margin-top:15px;">🔒 Paiement sécurisé via PayPal</p>
 
   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="dwaynekay07@gmail.com">
-    <input type="hidden" name="item_name" value="Montre Aurelius - Édition Cristal">
-    <input type="hidden" name="amount" value="79.99">
+    <input type="hidden" name="item_name" value="Montre Aurelius">
+    <input type="hidden" name="amount" id="paypalAmount">
     <input type="hidden" name="currency_code" value="EUR">
 
     <input type="submit" value="Payer avec PayPal" style="
@@ -196,8 +205,8 @@ footer a {
       padding:15px;
       border-radius:30px;
       font-size:16px;
-      cursor:pointer;
       margin-top:20px;
+      cursor:pointer;
     ">
   </form>
 </div>
@@ -209,23 +218,36 @@ footer a {
 </footer>
 
 <script>
-function openShop() {
-  document.getElementById("hero").style.display = "none";
-  document.getElementById("shop").style.display = "block";
-}
+let style="Or";
+let qty=1;
+const price=79.99;
 
-function changeImage(el) {
-  document.getElementById("mainImage").src = el.src;
-  document.querySelectorAll(".thumbs img").forEach(img => img.classList.remove("active"));
+function openShop(){
+  hero.style.display="none";
+  shop.style.display="block";
+}
+function selectStyle(el,name){
+  style=name;
+  styleName.innerText=name;
+  mainImage.src=el.src;
+  document.querySelectorAll(".thumbs img").forEach(i=>i.classList.remove("active"));
   el.classList.add("active");
 }
-
-function addToCart() {
-  document.getElementById("cartBox").style.display = "block";
+function changeQty(n){
+  qty=Math.max(1,qty+n);
+  qtyEl=document.getElementById("qty").innerText=qty;
 }
-
-function closeCart() {
-  document.getElementById("cartBox").style.display = "none";
+function addToCart(){
+  cartBox.style.display="block";
+  cartImg.src=mainImage.src;
+  cartStyle.innerText=style;
+  cartQty.innerText=qty;
+  let total=(price*qty).toFixed(2);
+  cartTotal.innerText=total+" €";
+  paypalAmount.value=total;
+}
+function closeCart(){
+  cartBox.style.display="none";
 }
 </script>
 
