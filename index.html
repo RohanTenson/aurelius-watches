@@ -140,4 +140,76 @@ a {
     <div class="watch-images">
       <img id="mainImage" src="IMG_0267.png">
       <div class="thumbnails">
-        <img src="IMG_0267.png" class="active" onclick="changeStyle('green', t_
+        <img src="IMG_0267.png" class="active" onclick="changeStyle('green', this)">
+        <img src="IMG_0268.png" onclick="changeStyle('silver', this)">
+        <img src="IMG_0269.png" onclick="changeStyle('gold', this)">
+      </div>
+    </div>
+
+    <div class="watch-info">
+      <p>Élégance, prestige et précision.</p>
+      <div class="price">79,99 €</div>
+
+      <div class="styles">
+        <button class="button" onclick="selectStyle('Vert Prestige')">Vert Prestige</button>
+        <button class="button" onclick="selectStyle('Argent Classique')">Argent Classique</button>
+        <button class="button" onclick="selectStyle('Or Impérial')">Or Impérial</button>
+      </div>
+
+      <button class="button" onclick="addToCart()">Ajouter au panier</button>
+    </div>
+  </div>
+</section>
+
+<!-- PANIER -->
+<div id="cart">
+  <div class="cart-header">
+    <h2>Panier</h2>
+    <button onclick="closeCart()">✖</button>
+  </div>
+  <div id="cartItems"></div>
+</div>
+
+<script>
+let selectedStyle = "Vert Prestige";
+
+const images = {
+  green: "IMG_0267.png",
+  silver: "IMG_0268.png",
+  gold: "IMG_0269.png"
+};
+
+function changeStyle(style, el) {
+  document.getElementById("mainImage").src = images[style];
+  document.querySelectorAll(".thumbnails img").forEach(img => img.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function selectStyle(style) {
+  selectedStyle = style;
+}
+
+function openCart() {
+  document.getElementById("cart").classList.add("active");
+}
+
+function closeCart() {
+  document.getElementById("cart").classList.remove("active");
+}
+
+function addToCart() {
+  openCart();
+  const item = document.createElement("div");
+  item.className = "cart-item";
+  item.innerHTML = `
+    <p><strong>Aurelius — ${selectedStyle}</strong></p>
+    <img src="${document.getElementById("mainImage").src}">
+    <p>79,99 €</p>
+    <hr>
+  `;
+  document.getElementById("cartItems").appendChild(item);
+}
+</script>
+
+</body>
+</html>
