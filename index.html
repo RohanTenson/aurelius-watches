@@ -8,20 +8,19 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
   background: #0b0b0b;
-  color: #f5f5f5;
-  overflow-x: hidden;
+  color: #fff;
 }
 
 /* HERO */
 .hero {
   height: 100vh;
+  background: radial-gradient(circle, #1a1a1a, #000);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(circle, #1a1a1a, #000);
   text-align: center;
 }
 
@@ -49,7 +48,7 @@ body {
 /* SECTION PRODUIT */
 .section {
   display: none;
-  padding: 70px 8%;
+  padding: 80px 8%;
 }
 
 .product {
@@ -61,7 +60,7 @@ body {
 
 .main-img {
   width: 100%;
-  border-radius: 14px;
+  border-radius: 15px;
   box-shadow: 0 0 30px rgba(201,162,77,0.4);
 }
 
@@ -83,46 +82,23 @@ body {
   border: 2px solid #c9a24d;
 }
 
-.details h2 {
+.price {
   font-size: 2em;
-}
-
-.details p {
-  line-height: 1.6;
-  color: #ddd;
-}
-
-.buttons span {
-  display: inline-block;
-  margin: 10px 10px 0 0;
-  padding: 8px 18px;
-  border: 1px solid #c9a24d;
-  border-radius: 20px;
   color: #c9a24d;
-  cursor: pointer;
+  margin: 20px 0;
 }
 
-.cta {
-  margin-top: 30px;
-}
-
-.cta button {
+.buy {
   background: #c9a24d;
   color: #000;
-  border: none;
-  padding: 15px 35px;
+  padding: 16px 40px;
   border-radius: 30px;
-  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
 }
 
-footer {
-  text-align: center;
-  padding: 30px;
-  margin-top: 60px;
-  color: #777;
-}
-
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .product {
     grid-template-columns: 1fr;
   }
@@ -133,65 +109,58 @@ footer {
 <body>
 
 <!-- HERO -->
-<div class="hero" id="hero">
+<div class="hero">
   <h1>AURELIUS</h1>
   <p>Le temps en majesté</p>
-  <button onclick="enterSite()">Entrer dans la collection</button>
+  <button onclick="openShop()">Découvrir la collection</button>
 </div>
 
 <!-- PRODUIT -->
-<section class="section" id="shop">
+<div class="section" id="shop">
   <div class="product">
 
     <div>
       <img id="mainImage" src="IMG_0267.png" class="main-img">
       <div class="thumbs">
-        <img src="IMG_0267.png" class="active" onclick="changeWatch('IMG_0267.png', this)">
-        <img src="IMG_0268.png" onclick="changeWatch('IMG_0268.png', this)">
-        <img src="IMG_0269.png" onclick="changeWatch('IMG_0269.png', this)">
+        <img src="IMG_0267.png" class="active" onclick="changeImage(this)">
+        <img src="IMG_0268.png" onclick="changeImage(this)">
+        <img src="IMG_0269.png" onclick="changeImage(this)">
       </div>
     </div>
 
-    <div class="details">
+    <div>
       <h2>Montre Luxe Quartz — Édition Cristal</h2>
       <p>
-        La montre <strong>Aurelius Édition Cristal</strong> incarne l’élégance et le prestige.
-        Son cadran orné de cristaux et son bracelet métallique raffiné
-        subliment chaque instant.
+        Élégance, prestige et précision.  
+        Trois styles uniques pour sublimer chaque instant.
       </p>
 
-      <div class="buttons">
-        <span onclick="selectStyle('Or Classique')">Or Classique</span>
-        <span onclick="selectStyle('Argent Rouge')">Argent Rouge</span>
-        <span onclick="selectStyle('Bicolore Vert Prestige')">Bicolore Vert Prestige</span>
-      </div>
+      <div class="price">79,99 €</div>
 
-      <div class="cta">
-        <button>Acheter maintenant</button>
-      </div>
+      <!-- PAYPAL -->
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="dwaynekay07@gmail.com">
+        <input type="hidden" name="item_name" value="Montre Aurelius - Édition Cristal">
+        <input type="hidden" name="amount" value="79.99">
+        <input type="hidden" name="currency_code" value="EUR">
+        <input type="submit" value="Acheter maintenant" class="buy">
+      </form>
+
     </div>
-
   </div>
-</section>
-
-<footer>
-© 2025 Aurelius — Tous droits réservés
-</footer>
+</div>
 
 <script>
-function enterSite() {
-  document.getElementById('hero').style.display = 'none';
+function openShop() {
+  document.querySelector('.hero').style.display = 'none';
   document.getElementById('shop').style.display = 'block';
 }
 
-function changeWatch(src, el) {
-  document.getElementById('mainImage').src = src;
+function changeImage(el) {
+  document.getElementById('mainImage').src = el.src;
   document.querySelectorAll('.thumbs img').forEach(img => img.classList.remove('active'));
   el.classList.add('active');
-}
-
-function selectStyle(style) {
-  alert("Style sélectionné : " + style);
 }
 </script>
 
