@@ -1,10 +1,25 @@
+/* ===== BASE ===== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: black;
+  background-image: url("background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: white;
 }
 
+/* Overlay luxe sombre */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+/* ===== HEADER ===== */
 .header {
   text-align: center;
   padding: 40px 20px;
@@ -18,6 +33,7 @@ body {
   color: #c9a24d;
 }
 
+/* ===== NAVIGATION ===== */
 .nav a {
   color: #c9a24d;
   margin: 0 15px;
@@ -25,6 +41,7 @@ body {
   font-weight: bold;
 }
 
+/* ===== HERO ===== */
 .hero {
   height: 60vh;
   display: flex;
@@ -32,6 +49,7 @@ body {
   align-items: center;
 }
 
+/* ===== BOUTONS ===== */
 .btn-gold {
   background: linear-gradient(135deg, #d4af37, #b8962e);
   color: black;
@@ -43,6 +61,7 @@ body {
   cursor: pointer;
 }
 
+/* ===== PRODUIT ===== */
 .product {
   display: flex;
   flex-wrap: wrap;
@@ -51,11 +70,14 @@ body {
   gap: 40px;
 }
 
+/* Image principale */
 .product-images img {
   width: 300px;
   border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
+/* Miniatures */
 .thumbnails {
   display: flex;
   justify-content: center;
@@ -68,8 +90,15 @@ body {
   cursor: pointer;
   border-radius: 10px;
   border: 2px solid #333;
+  transition: border 0.3s, transform 0.3s;
 }
 
+.thumbnails img:hover {
+  border: 2px solid #d4af37;
+  transform: scale(1.05);
+}
+
+/* Infos produit */
 .product-info {
   max-width: 400px;
 }
@@ -77,8 +106,10 @@ body {
 .price {
   font-size: 28px;
   color: #d4af37;
+  margin: 15px 0;
 }
 
+/* ===== STYLES (VERT / ARGENT / OR) ===== */
 .styles button {
   margin: 5px;
   padding: 10px 15px;
@@ -87,4 +118,11 @@ body {
   background: transparent;
   color: #d4af37;
   cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.styles button:hover,
+.styles button.active {
+  background: #d4af37;
+  color: black;
 }
