@@ -75,6 +75,18 @@ button {
   border-radius: 25px;
   cursor: pointer;
   margin: 5px 0;
+  font-weight: bold;
+}
+
+.style-btn {
+  background: #222;
+  color: white;
+  border: 1px solid gold;
+}
+
+.style-btn.active {
+  background: gold;
+  color: black;
 }
 
 #cart {
@@ -119,6 +131,35 @@ button {
   font-weight: bold;
   margin-top: 20px;
 }
+
+/* AVIS */
+.reviews {
+  margin-top: 60px;
+}
+
+.review {
+  background: #111;
+  border: 1px solid gold;
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.stars {
+  color: gold;
+}
+
+/* COOKIES */
+#cookies {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  z-index: 20;
+}
 </style>
 </head>
 
@@ -146,14 +187,33 @@ button {
 
     <div>
       <h2>Montre Aurelius – Édition Cristal</h2>
-      <p>Élégance, précision et prestige.</p>
       <p class="price">79,99 €</p>
 
-      <button onclick="selectStyle('Vert Prestige')">Vert Prestige</button><br>
-      <button onclick="selectStyle('Argent Classique')">Argent Classique</button><br>
-      <button onclick="selectStyle('Or Impérial')">Or Impérial</button><br><br>
+      <button class="style-btn active" onclick="selectStyle('Vert Prestige', this)">Vert Prestige</button><br>
+      <button class="style-btn" onclick="selectStyle('Argent Classique', this)">Argent Classique</button><br>
+      <button class="style-btn" onclick="selectStyle('Or Impérial', this)">Or Impérial</button><br><br>
 
       <button onclick="addToCart()">Ajouter au panier</button>
+    </div>
+  </div>
+
+  <!-- AVIS -->
+  <div class="reviews">
+    <h2>Avis clients</h2>
+
+    <div class="review">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      Magnifique montre, très élégante !
+    </div>
+
+    <div class="review">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      Livraison rapide et qualité premium.
+    </div>
+
+    <div class="review">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      Parfaite pour un cadeau, je recommande.
     </div>
   </div>
 </section>
@@ -162,26 +222,37 @@ button {
 <div id="cart">
   <h2>Panier</h2>
   <button onclick="closeCart()">Fermer</button>
+  <button onclick="clearCart()">Vider le panier</button>
 
   <div id="cartItems"></div>
 
   <div class="total">Total : <span id="total">0</span> €</div>
 
-  <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="dwaynekay07@gmail.com">
     <input type="hidden" name="item_name" value="Montre Aurelius">
-    <input type="hidden" name="amount" id="paypalAmount" value="79.99">
+    <input type="hidden" name="amount" id="paypalAmount" value="0">
     <input type="hidden" name="currency_code" value="EUR">
     <button type="submit">Payer avec PayPal</button>
   </form>
 </div>
 
+<!-- COOKIES -->
+<div id="cookies" style="display:none">
+  Ce site utilise des cookies pour améliorer votre expérience.
+  <button onclick="acceptCookies()">Accepter</button>
+</div>
+
 <script>
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let currentStyle = "Vert Prestige";
 let currentImage = "watch-green.png";
 const price = 79.99;
+
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 function change(img, el) {
   currentImage = img;
@@ -190,8 +261,10 @@ function change(img, el) {
   el.classList.add("active");
 }
 
-function selectStyle(style) {
+function selectStyle(style, btn) {
   currentStyle = style;
+  document.querySelectorAll(".style-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
 }
 
 function openCart() {
@@ -202,6 +275,12 @@ function closeCart() {
   document.getElementById("cart").classList.remove("active");
 }
 
+function clearCart() {
+  cart = [];
+  saveCart();
+  renderCart();
+}
+
 function addToCart() {
   openCart();
   const existing = cart.find(i => i.style === currentStyle);
@@ -210,6 +289,7 @@ function addToCart() {
   } else {
     cart.push({ style: currentStyle, img: currentImage, qty: 1 });
   }
+  saveCart();
   renderCart();
 }
 
@@ -243,8 +323,21 @@ function renderCart() {
 function updateQty(index, change) {
   cart[index].qty += change;
   if (cart[index].qty <= 0) cart.splice(index, 1);
+  saveCart();
   renderCart();
 }
+
+/* COOKIES */
+function acceptCookies() {
+  localStorage.setItem("cookiesAccepted", "yes");
+  document.getElementById("cookies").style.display = "none";
+}
+
+if (!localStorage.getItem("cookiesAccepted")) {
+  document.getElementById("cookies").style.display = "block";
+}
+
+renderCart();
 </script>
 
 </body>
