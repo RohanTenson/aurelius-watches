@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>AURELIUS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURELIUS – Luxury Watch</title>
 
 <style>
 body {
@@ -10,63 +11,239 @@ body {
   font-family: Arial, sans-serif;
   background: black;
   color: white;
+}
+
+header {
   text-align: center;
+  padding: 30px 20px;
 }
 
-h1 {
-  letter-spacing: 5px;
-  margin-top: 30px;
+header h1 {
+  letter-spacing: 6px;
 }
 
-.price {
+header p {
   color: gold;
-  font-size: 26px;
 }
 
-img {
-  width: 300px;
+nav a {
+  margin: 0 15px;
+  color: gold;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+section {
+  max-width: 1000px;
+  margin: auto;
+  padding: 50px 20px;
+}
+
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: center;
+}
+
+.product img {
+  width: 320px;
   border-radius: 20px;
 }
 
-.buttons button {
+.thumbs img {
+  width: 70px;
   margin: 5px;
-  padding: 12px 25px;
-  border-radius: 30px;
-  border: none;
-  background: gold;
   cursor: pointer;
+  opacity: 0.6;
 }
 
+.thumbs img.active {
+  opacity: 1;
+  border: 2px solid gold;
+}
+
+.price {
+  font-size: 30px;
+  color: gold;
+}
+
+button {
+  background: gold;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+#cart {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  background: white;
+  color: black;
+  padding: 20px;
+  transition: 0.3s;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+#cart.active {
+  right: 0;
+}
+
+.cart-item {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.cart-item img {
+  width: 80px;
+  border-radius: 10px;
+}
+
+.qty button {
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+.total {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+}
 </style>
 </head>
 
 <body>
 
-<h1>AURELIUS</h1>
-<p>Montre luxe – 79,99 €</p>
+<header>
+  <h1>AURELIUS</h1>
+  <p>Le temps en majesté</p>
+  <nav>
+    <a href="#watch">Watch</a>
+    <a href="#" onclick="openCart()">Panier</a>
+  </nav>
+</header>
 
-<img id="watch" src="watch-green.png">
+<section id="watch">
+  <div class="product">
+    <div>
+      <img id="main" src="watch-green.png">
+      <div class="thumbs">
+        <img src="watch-green.png" class="active" onclick="change('watch-green.png', this)">
+        <img src="watch-silver.png" onclick="change('watch-silver.png', this)">
+        <img src="watch-gold.png" onclick="change('watch-gold.png', this)">
+      </div>
+    </div>
 
-<div class="buttons">
-  <button onclick="change('watch-green.png')">Vert</button>
-  <button onclick="change('watch-silver.png')">Argent</button>
-  <button onclick="change('watch-gold.png')">Or</button>
+    <div>
+      <h2>Montre Aurelius – Édition Cristal</h2>
+      <p>Élégance, précision et prestige.</p>
+      <p class="price">79,99 €</p>
+
+      <button onclick="selectStyle('Vert Prestige')">Vert Prestige</button><br>
+      <button onclick="selectStyle('Argent Classique')">Argent Classique</button><br>
+      <button onclick="selectStyle('Or Impérial')">Or Impérial</button><br><br>
+
+      <button onclick="addToCart()">Ajouter au panier</button>
+    </div>
+  </div>
+</section>
+
+<!-- PANIER -->
+<div id="cart">
+  <h2>Panier</h2>
+  <button onclick="closeCart()">Fermer</button>
+
+  <div id="cartItems"></div>
+
+  <div class="total">Total : <span id="total">0</span> €</div>
+
+  <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="dwaynekay07@gmail.com">
+    <input type="hidden" name="item_name" value="Montre Aurelius">
+    <input type="hidden" name="amount" id="paypalAmount" value="79.99">
+    <input type="hidden" name="currency_code" value="EUR">
+    <button type="submit">Payer avec PayPal</button>
+  </form>
 </div>
 
-<p class="price">79,99 €</p>
-
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-  <input type="hidden" name="cmd" value="_xclick">
-  <input type="hidden" name="business" value="dwaynekay07@gmail.com">
-  <input type="hidden" name="item_name" value="Montre Aurelius">
-  <input type="hidden" name="amount" value="79.99">
-  <input type="hidden" name="currency_code" value="EUR">
-  <button type="submit">Payer avec PayPal</button>
-</form>
-
 <script>
-function change(img) {
-  document.getElementById("watch").src = img;
+let cart = [];
+let currentStyle = "Vert Prestige";
+let currentImage = "watch-green.png";
+const price = 79.99;
+
+function change(img, el) {
+  currentImage = img;
+  document.getElementById("main").src = img;
+  document.querySelectorAll(".thumbs img").forEach(i => i.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function selectStyle(style) {
+  currentStyle = style;
+}
+
+function openCart() {
+  document.getElementById("cart").classList.add("active");
+}
+
+function closeCart() {
+  document.getElementById("cart").classList.remove("active");
+}
+
+function addToCart() {
+  openCart();
+  const existing = cart.find(i => i.style === currentStyle);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ style: currentStyle, img: currentImage, qty: 1 });
+  }
+  renderCart();
+}
+
+function renderCart() {
+  const container = document.getElementById("cartItems");
+  container.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.qty * price;
+    container.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.img}">
+        <div>
+          <strong>${item.style}</strong><br>
+          ${price} €
+          <div class="qty">
+            <button onclick="updateQty(${index}, -1)">−</button>
+            ${item.qty}
+            <button onclick="updateQty(${index}, 1)">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById("total").innerText = total.toFixed(2);
+  document.getElementById("paypalAmount").value = total.toFixed(2);
+}
+
+function updateQty(index, change) {
+  cart[index].qty += change;
+  if (cart[index].qty <= 0) cart.splice(index, 1);
+  renderCart();
 }
 </script>
 
