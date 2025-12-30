@@ -2,234 +2,71 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AURELIUS — Luxury Watches</title>
+<title>AURELIUS</title>
 
 <style>
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  background: radial-gradient(circle at top, #111, #000);
+  font-family: Arial, sans-serif;
+  background: black;
   color: white;
-}
-
-header {
-  padding: 30px 20px;
   text-align: center;
 }
 
-header h1 {
-  letter-spacing: 6px;
-  margin-bottom: 5px;
-}
-
-header p {
-  color: #c9a24d;
-}
-
-nav {
-  margin-top: 15px;
-}
-
-nav a {
-  margin: 0 15px;
-  color: #d4af37;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.section {
-  max-width: 1000px;
-  margin: auto;
-  padding: 60px 20px;
-}
-
-.product {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-  align-items: center;
-}
-
-.product-images img {
-  width: 100%;
-  max-width: 380px;
-  border-radius: 25px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-}
-
-.thumbnails {
-  display: flex;
-  gap: 12px;
-  margin-top: 15px;
-}
-
-.thumbnails img {
-  width: 70px;
-  border-radius: 12px;
-  cursor: pointer;
-  opacity: 0.6;
-  border: 2px solid transparent;
-}
-
-.thumbnails img.active {
-  opacity: 1;
-  border-color: #d4af37;
-}
-
-.info h2 {
-  font-size: 30px;
+h1 {
+  letter-spacing: 5px;
+  margin-top: 30px;
 }
 
 .price {
-  font-size: 32px;
-  color: #d4af37;
-  margin: 15px 0;
+  color: gold;
+  font-size: 26px;
 }
 
-button {
-  background: linear-gradient(135deg, #d4af37, #b8962e);
-  color: black;
-  border: none;
-  padding: 14px 28px;
+img {
+  width: 300px;
+  border-radius: 20px;
+}
+
+.buttons button {
+  margin: 5px;
+  padding: 12px 25px;
   border-radius: 30px;
-  font-size: 16px;
+  border: none;
+  background: gold;
   cursor: pointer;
-  margin: 6px 0;
 }
 
-.cart-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-}
-
-#cart {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 100%;
-  max-width: 420px;
-  height: 100%;
-  background: white;
-  color: black;
-  padding: 25px;
-  transition: 0.3s;
-  z-index: 10;
-}
-
-#cart.active {
-  right: 0;
-}
-
-.cart-item img {
-  width: 90px;
-  border-radius: 12px;
-}
-
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>AURELIUS</h1>
-  <p>Le temps en majesté</p>
-  <nav>
-    <a href="#watch">Watch</a>
-    <a href="#" onclick="openCart()">Panier</a>
-  </nav>
-</header>
+<h1>AURELIUS</h1>
+<p>Montre luxe – 79,99 €</p>
 
-<button class="cart-btn" onclick="openCart()">🛒</button>
+<img id="watch" src="watch-green.png">
 
-<section id="watch" class="section">
-  <div class="product">
-    <div class="product-images">
-      <img id="mainImage" src="IMG_0267.png">
-      <div class="thumbnails">
-        <img src="IMG_0267.png" class="active" onclick="changeStyle('green', this)">
-        <img src="IMG_0268.png" onclick="changeStyle('silver', this)">
-        <img src="IMG_0269.png" onclick="changeStyle('gold', this)">
-      </div>
-    </div>
-
-    <div class="info">
-      <h2>Montre Aurelius — Édition Cristal</h2>
-      <p>Alliance parfaite entre prestige et précision.</p>
-      <div class="price">79,99 €</div>
-
-      <button onclick="selectStyle('Vert Prestige')">Vert Prestige</button><br>
-      <button onclick="selectStyle('Argent Classique')">Argent Classique</button><br>
-      <button onclick="selectStyle('Or Impérial')">Or Impérial</button><br><br>
-
-      <button onclick="addToCart()">Ajouter au panier</button>
-    </div>
-  </div>
-</section>
-
-<!-- PANIER -->
-<div id="cart">
-  <div class="cart-header">
-    <h2>Panier</h2>
-    <button onclick="closeCart()">✖</button>
-  </div>
-
-  <div id="cartItems"></div>
-
-  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_xclick">
-    <input type="hidden" name="business" value="dwaynekay07@gmail.com">
-    <input type="hidden" name="item_name" value="Montre Aurelius — Édition Cristal">
-    <input type="hidden" name="amount" value="79.99">
-    <input type="hidden" name="currency_code" value="EUR">
-    <button type="submit">Payer avec PayPal</button>
-  </form>
+<div class="buttons">
+  <button onclick="change('watch-green.png')">Vert</button>
+  <button onclick="change('watch-silver.png')">Argent</button>
+  <button onclick="change('watch-gold.png')">Or</button>
 </div>
 
+<p class="price">79,99 €</p>
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+  <input type="hidden" name="cmd" value="_xclick">
+  <input type="hidden" name="business" value="dwaynekay07@gmail.com">
+  <input type="hidden" name="item_name" value="Montre Aurelius">
+  <input type="hidden" name="amount" value="79.99">
+  <input type="hidden" name="currency_code" value="EUR">
+  <button type="submit">Payer avec PayPal</button>
+</form>
+
 <script>
-let selectedStyle = "Vert Prestige";
-
-const images = {
-  green: "IMG_0267.png",
-  silver: "IMG_0268.png",
-  gold: "IMG_0269.png"
-};
-
-function changeStyle(style, el) {
-  document.getElementById("mainImage").src = images[style];
-  document.querySelectorAll(".thumbnails img").forEach(i => i.classList.remove("active"));
-  el.classList.add("active");
-}
-
-function selectStyle(style) {
-  selectedStyle = style;
-}
-
-function openCart() {
-  document.getElementById("cart").classList.add("active");
-}
-
-function closeCart() {
-  document.getElementById("cart").classList.remove("active");
-}
-
-function addToCart() {
-  openCart();
-  const div = document.createElement("div");
-  div.className = "cart-item";
-  div.innerHTML = `
-    <p><strong>${selectedStyle}</strong></p>
-    <img src="${document.getElementById("mainImage").src}">
-    <p>79,99 €</p>
-    <hr>
-  `;
-  document.getElementById("cartItems").appendChild(div);
+function change(img) {
+  document.getElementById("watch").src = img;
 }
 </script>
 
